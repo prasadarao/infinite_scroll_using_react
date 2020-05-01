@@ -13,10 +13,10 @@ class InfiniteScrollSingle extends Component {
           urls: {},
           urlslist: [],
           columns: 2,
-          loading: false
+          loading: false,
+          isLoadMore: true
         }
         this.isScrolling = false
-        this.isLoadMore = false
     }
     
     // For attacching the scroll event
@@ -31,7 +31,10 @@ class InfiniteScrollSingle extends Component {
         let th = this 
         // Too avoid multiple calls
         window.clearTimeout( this.isScrolling );
-        this.isScrolling = setTimeout(function(e) {    
+        this.isScrolling = setTimeout(function(e) {   
+            if (th.state.isLoadMore) {
+                th.setState({isLoadMore:  false})
+            } 
             if (!th.state.loading && (window.innerHeight + document.documentElement.scrollTop >= document.documentElement.offsetHeight)) {
                 th.fetchData()
             }            
@@ -51,6 +54,8 @@ class InfiniteScrollSingle extends Component {
                 this.setState({urls:{...this.state.urls, [responses[1].data.url] : ""}})
                 this.setState({ loading: false });
                 this.reorder(Object.keys(this.state.urls), this.state.columns)
+                if(this.state.isLoadMore)
+                    this.checkLoadMore()
                 })
             )
             .catch(errors => {
@@ -60,7 +65,7 @@ class InfiniteScrollSingle extends Component {
 
     componentDidMount() {
         this.fetchData()
-        this.checkLoadMore()
+        
     }
 
     reorder = (arr, columns) => {
@@ -80,7 +85,7 @@ class InfiniteScrollSingle extends Component {
         return !(url.indexOf(".mp4") > 0)
     }
     checkLoadMore() {
-        this.isLoadMore = (document.documentElement.scrollHeight <= document.documentElement.clientHeight)  
+        this.setState({ isLoadMore: (document.documentElement.scrollHeight <= document.documentElement.clientHeight)}) 
     }
     
     render() {
@@ -91,7 +96,7 @@ class InfiniteScrollSingle extends Component {
                         <Block key={i} url={url} isImage={this.isImage(url)}/>
                     ))}
                 </div>
-                {this.isLoadMore ? <LoadMore fetchData={this.fetchData}/>: ''}
+                {this.state.isLoadMore ? <LoadMore fetchData={this.fetchData}/>: ''}
             </div>
         )
     }

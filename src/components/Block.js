@@ -2,7 +2,6 @@ import React from 'react';
 
 
 const Block = (props) => {
-    console.log(props.isImage);
     if(props.isImage) {
         return (
             <div className="block">
