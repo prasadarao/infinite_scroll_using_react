@@ -1,12 +1,12 @@
 import React from 'react';
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
-import InfiniteScrollSingle from './components/InfiniteScrollSingle'
+import InfiniteScroll from './components/InfiniteScroll'
 
 const Routes = () => {
     return (
         <Router>
             <Switch>
-                <Route exact path="/" component={InfiniteScrollSingle} />
+                <Route exact path="/" component={InfiniteScroll} />
             </Switch>
         </Router>
     )

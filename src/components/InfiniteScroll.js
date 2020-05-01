@@ -3,9 +3,9 @@ import axios from 'axios'
 
 import Block from './Block'
 import LoadMore from './LoadMore'
-import './InfiniteScrollSingle.css';
+import './InfiniteScroll.css';
 
-class InfiniteScrollSingle extends Component {
+class InfiniteScroll extends Component {
     constructor(props) {
         super(props)
 
@@ -102,4 +102,4 @@ class InfiniteScrollSingle extends Component {
     }
 }
 
-export default InfiniteScrollSingle;
+export default InfiniteScroll;

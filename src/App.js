@@ -4,8 +4,6 @@ import Footer from "./common/Footer";
 import PageRoutes from "./Routes";
 import './App.css';
 
-import InfiniteScrollSingle from './components/InfiniteScrollSingle'
-
 const App = () => {
   return (
     <div>
